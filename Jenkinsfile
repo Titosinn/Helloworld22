@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  tools{
+    maven 'M2_HOME'
+  }
   stages {
     stage('Build'){
       steps {
@@ -7,19 +10,19 @@ pipeline {
         sleep 10
       }
     }
-  stage ('test'){
+  stage('test'){
       steps {
         echo "test step"
         sleep 10
       }
     }
-  stage ('Deploy'){
+  stage('Deploy'){
       steps {
         echo "deploy step"
         sleep 10
       }
     }
-  stage ('Docker'){
+  stage('Docker'){
       steps {
         echo "image step"
         sleep 10
