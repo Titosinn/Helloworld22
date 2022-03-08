@@ -3,10 +3,14 @@ pipeline {
   tools{
     maven 'M2_HOME'
   }
+  environment {
+    registry = "Titosin123/devops-pipeline"
+    registryCredential = 'DockerID'
+  }
   stages {
     stage('Build'){
       steps {
-        sh "mvn clean"
+        sh 'mvn clean'
         sh 'mvn install'
         sh 'mvn package'
       }
@@ -17,17 +21,12 @@ pipeline {
         sh 'mvn test'
       }
     }
-  stage('Deploy'){
+  stage('Building image'){
       steps {
-        echo "deploy step"
-        sleep 10
+        script {
+        docker.build registry + ":$BUILD_NUMBER"
       }
-    }
-  stage('Docker'){
-      steps {
-        echo "image step"
-        sleep 10
-      }
-    }
+     }
+   }
   }
 }
